@@ -21,7 +21,7 @@ const cardSchema = new mongoose.Schema({
         type: [String],
         default:[]
     },
-    category: {
+    series: {
         type: mongoose.Schema.Types.ObjectId,
         required:true,
         ref: "Series",

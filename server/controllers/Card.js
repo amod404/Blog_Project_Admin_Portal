@@ -1,6 +1,7 @@
 const Card = require("../model/Card")
-const Category = require("../model/Category")
+const Series = require("../model/Series")
 const {uploadImageToCloudinary} = require("../utils/imageUploader")
+require("dotenv").config();
 
 exports.createCard = async (req,res) => {
     try{
@@ -9,21 +10,21 @@ exports.createCard = async (req,res) => {
             description,
             timeToRead,
             tags:_tag,
-            category,
-            date
+            series,
+            date,
         } = req.body;
+        
+        const thumbnail = req.files.thumbnail
+        console.log("request -> " , req.body);
 
-        const thumbnail = req.files.thumbnail;
-
-        const tags = JSON.parse(_tag)
-        console.log(_tag)
+        console.log("tags -> ",_tag)
 
         if(
             !title ||
             !description ||
             !thumbnail ||
-            ! category ||
-            ! date
+            !series ||
+            !date
         ){
             return res.status(400).json({
                 success:false,
@@ -31,6 +32,44 @@ exports.createCard = async (req,res) => {
             })
         }
 
+        const seriesDetails = await Series.findOne({name:series});
+        console.log("series->",seriesDetails);
+        if (!seriesDetails) {
+          return res.status(404).json({
+            success: false,
+            message: "series Details Not Found",
+          })
+        }
+
+        
+        // const thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
+        console.log(thumbnail);
+        
+        const newCard = await Card.create({
+            title,
+            description,
+            thumbnail:thumbnail.secure_url,
+            timeToRead,
+            series:seriesDetails._id,
+            date,
+        })
+        
+        await Series.findByIdAndUpdate(
+            {
+                _id:seriesDetails._id,
+            },
+            {
+                $push: {
+                    cards:newCard._id,
+                },
+            },
+            { new:true }
+        )
+
+        return res.status(200).json({
+            success:true,
+            message:"card created successfully",
+        });
 
     } catch(err){
         console.log(err);

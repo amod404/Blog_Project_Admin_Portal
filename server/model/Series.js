@@ -8,7 +8,6 @@ const seriesSchema = new mongoose.Schema({
 	},
     logo:{
         type:String,
-        required:true,
     },
 	cards: [
 		{
