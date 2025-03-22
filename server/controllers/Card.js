@@ -1,7 +1,9 @@
 const Card = require("../model/Card")
 const Series = require("../model/Series")
 const {uploadImageToCloudinary} = require("../utils/imageUploader")
+
 require("dotenv").config();
+
 
 exports.createCard = async (req,res) => {
     try{
@@ -11,20 +13,22 @@ exports.createCard = async (req,res) => {
             timeToRead,
             tags:_tag,
             series,
-            date,
+            content
         } = req.body;
-        
         const thumbnail = req.files.thumbnail
-        console.log("request -> " , req.body);
+        series = series.trim().replace(/\s+/g, "-").toLowerCase()
 
-        console.log("tags -> ",_tag)
+        let tags = []
+        if(_tag){   
+            tags = _tag.split(' ');
+        }
 
         if(
             !title ||
             !description ||
             !thumbnail ||
             !series ||
-            !date
+            !content
         ){
             return res.status(400).json({
                 success:false,
@@ -41,17 +45,15 @@ exports.createCard = async (req,res) => {
           })
         }
 
-        
-        // const thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
-        console.log(thumbnail);
-        
+        const thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);        
         const newCard = await Card.create({
             title,
             description,
-            thumbnail:thumbnail.secure_url,
+            content,
+            thumbnail:thumbnailImage.secure_url,
             timeToRead,
             series:seriesDetails._id,
-            date,
+            tags:tags,
         })
         
         await Series.findByIdAndUpdate(
@@ -69,6 +71,7 @@ exports.createCard = async (req,res) => {
         return res.status(200).json({
             success:true,
             message:"card created successfully",
+            data:newCard
         });
 
     } catch(err){
@@ -79,4 +82,8 @@ exports.createCard = async (req,res) => {
             error:err.message
         })
     }
+}
+
+exports.deleteCard = async (req,res) => {
+
 }
