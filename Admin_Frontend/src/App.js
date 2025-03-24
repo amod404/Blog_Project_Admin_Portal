@@ -3,7 +3,6 @@ import MyEditor from "./components/MyEditor";
 import { useForm } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const [content, setContent] = useState("");
@@ -63,7 +62,6 @@ export default function App() {
 
   return (
     <>
-      <Toaster position="top-right" />
     <div className="w-screen min-h-screen p-2 bg-orange-100 flex flex-col lg:flex-row text-center justify-between">
       <MyEditor setContent={setContent} />
 
