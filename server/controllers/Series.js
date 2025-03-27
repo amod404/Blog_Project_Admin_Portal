@@ -49,3 +49,28 @@ exports.createSeries = async (req,res) => {
         })
     }
 }
+
+exports.getSeries = async (req, res) => {
+    try{
+        const series = await Series.find({});
+        if(!series){
+            return res.status(505).json({
+                success:false,
+                message:"No series found"
+            })
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:"series fetched successfully",
+            data:series
+        })
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"Falied to get series",
+            error:err.message
+        })
+    }
+} 

@@ -1,6 +1,6 @@
 import Particles from "../components/Home/Particles";
 
-function Home() {
+function BackGroundPage() {
   return (
       <div>
       <div className="bg-black w-screen h-screen overflow-hidden fixed top-0">
@@ -21,4 +21,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default BackGroundPage;

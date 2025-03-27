@@ -1,5 +1,6 @@
 const Card = require("../model/Card")
 const Series = require("../model/Series")
+const Content = require("../model/Content")
 const {uploadImageToCloudinary} = require("../utils/imageUploader")
 
 require("dotenv").config();
@@ -37,7 +38,7 @@ exports.createCard = async (req,res) => {
         }
 
         const seriesDetails = await Series.findOne({name:series});
-        console.log("series->",seriesDetails);
+
         if (!seriesDetails) {
           return res.status(404).json({
             success: false,
@@ -45,11 +46,16 @@ exports.createCard = async (req,res) => {
           })
         }
 
-        const thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);        
+        const thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);  
+
+        const contentDetails = await Content.create({
+            data:content,
+        })
+
         const newCard = await Card.create({
             title,
             description,
-            content,
+            contentId:contentDetails._id,
             thumbnail:thumbnailImage.secure_url,
             timeToRead,
             series:seriesDetails._id,
@@ -84,6 +90,24 @@ exports.createCard = async (req,res) => {
     }
 }
 
-exports.deleteCard = async (req,res) => {
-
+exports.getCards = async (req,res) => {
+    try{
+        const cards = await Card.find({})
+        if(!cards){
+            throw new Error("No cards found")
+        }
+        
+        return res.status(200).json({
+            success:true,
+            message:"cards fetched successfully",
+            data:cards
+        })
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"Failed to fetch cards",
+            error:err.message
+        })
+    }
 }

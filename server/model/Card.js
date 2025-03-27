@@ -31,8 +31,9 @@ const cardSchema = new mongoose.Schema({
         required:true,
         default:Date.now
     },
-    content:{
-        type: String,
+    contentId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Content",
         required: true
     }
 })
