@@ -22,7 +22,7 @@ const transformStyles = [
 const Home = () => {
   return(
     <div className="h-screen w-screen flex flex-row justify-between relative overflow-hidden">
-      <div className="absolute w-[700px] h-[600px] bg-[#00c4cc] rounded-full opacity-10 inset-0 m-auto floating -z-10"></div>
+      <div className="absolute w-[45%] h-[80%] bg-[#00c4cc] rounded-full opacity-10 inset-0 m-auto floating -z-10"></div>
       <img src="https://res.cloudinary.com/dorxkjdt6/image/upload/v1742875982/side1_f7z6ff.png" alt="" className="lg:scale-100 md:scale-0 sm:scale-0 h-screen" />
       <div className="w-fit flex flex-col items-center justify-center gap-8 mx-auto p-10 overflow-hidden">
         <div className="ml-32 flex lg:flex-row md:flex-col items-center justify-center gap-10">
