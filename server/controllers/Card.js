@@ -113,10 +113,10 @@ exports.getCards = async (req,res) => {
 }
 
 
-exports.getCardByTag = async (req,res) => {
+exports.getCardsByTag = async (req,res) => {
     try{
         const { tag } = req.body;
-        const cards = await Card.find({ tags: { $in: [tag] } }).populate("contentId").sort({ date: -1 });
+        const cards = await Card.find({ tags: { $in: [tag] } }).sort({ date: -1 });
 
         if(cards == null){
             return res.status(404).json({
