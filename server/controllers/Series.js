@@ -74,3 +74,41 @@ exports.getSeries = async (req, res) => {
         })
     }
 } 
+
+exports.getSeriesById = async (req,res) => {
+    try{
+        const { series } = req.body;
+        
+        if(!series){
+            return res.status(404).json({
+                success:false,
+                message:"Series is required",
+                error:err.message
+            })
+        }
+        
+        const data = await Series.findOne({name:series}).populate("cards");
+        
+        if(!data){
+            return res.status(404).json({
+                success:false,
+                message:"Series not found",
+                error:err.message
+            })
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:"Data of series extracted successfully",
+            data:data
+        })
+
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong",
+            error:err.message
+        })
+    }
+}

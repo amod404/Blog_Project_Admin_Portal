@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { endpoints } from "./services/apis";
 import Content from "./pages/Content";
 import ScrollToTop from "./components/Common/ScrollToTop";
+import Series from "./pages/Series";
+import Tags from "./pages/Tags";
 
 const { GET_CARDS } = endpoints;
 
@@ -33,13 +35,15 @@ function App() {
     // eslint-disable-next-line
   },[])
   return (
-      <div>
+      <div className="w-screen overflow-hidden">
         <ScrollToTop/>
         {location.pathname !== "/" && <Navbar/>}
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/blog" element={<Blog/>}/>
           <Route path="/blog/:id" element={<Content/>}/>
+          <Route path="/series/:series" element={<Series/>}/>
+          <Route path="/tag/:tag" element={<Tags/>}/>
         </Routes>
 
         {location.pathname !== "/" && <Footer/>}

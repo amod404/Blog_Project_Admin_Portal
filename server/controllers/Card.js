@@ -111,3 +111,32 @@ exports.getCards = async (req,res) => {
         })
     }
 }
+
+
+exports.getCardByTag = async (req,res) => {
+    try{
+        const { tag } = req.body;
+        const cards = await Card.find({ tags: { $in: [tag] } }).populate("contentId").sort({ date: -1 });
+
+        if(cards == null){
+            return res.status(404).json({
+                success:false,
+                message:"No cards found",
+            })
+        }   
+
+        return res.status(200).json({
+            success:true,
+            message:"cards fetched successfully",
+            data:cards
+        })  
+
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"Failed to fetch cards",
+            error:err.message
+        })
+    }
+}

@@ -45,7 +45,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex flex-row items-center justify-between px-10 w-screen h-16 p-2 border-b border-richblack-50 shadow-sm top-0 bg-white z-50">
+    <div className=" w-screen border-b border-richblack-50 shadow-sm top-0 bg-white z-50">
+    <div className="flex flex-row items-center justify-between w-[90%] h-16 py-2 mx-auto">
         <Link to="/">
           <p className="text-3xl font-semibold text-lightBlue-500 ">Amod_Yadav</p>
         </Link>
@@ -83,6 +84,7 @@ const Navbar = () => {
             }
           </div>
         </div>
+    </div>
     </div>
   );
 };
