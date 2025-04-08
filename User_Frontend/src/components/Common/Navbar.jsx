@@ -56,11 +56,11 @@ const Navbar = () => {
           <Link to={`/blog`}>
             <p>Blog</p>
           </Link>
-          <Link to={`/series/${series ? series[0]?.name : null}`}>
-            <p>{series ? series[0]?.name : null}</p>
+          <Link to={`/series/${series?.length > 0 ? series[0].name : ""}`}>
+            <p>{series?.length > 0 ? series[0]?.name : null}</p>
           </Link>
-          <Link to={`/series/${series ? series[1]?.name : null}`}>
-            <p>{series ? series[1]?.name : null}</p>
+          <Link to={`/series/${series?.length > 0 ? series[1]?.name : ""}`}>
+            <p>{series?.length > 0 ? series[1]?.name : null}</p>
           </Link>
           <div className="relative" ref={dropdownRef}>
             <p onClick={() => setMore((curr) => !curr)} className="cursor-pointer flex flex-row items-center justify-center gap-1">
