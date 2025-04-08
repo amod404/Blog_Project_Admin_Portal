@@ -16,8 +16,8 @@ const Subscribe = () => {
   };
 
   const handleChange = (event) => {
-    setEmail(event.target.value);
-    setIsValid(validateEmail(event.target.value));
+    setEmail(event?.target?.value);
+    setIsValid(validateEmail(event?.target?.value));
   };
 
   const handleSubscribe = () => {

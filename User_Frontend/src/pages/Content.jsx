@@ -51,7 +51,7 @@ const Content = () => {
 
       <div className="flex w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] gap-2 text-richblack-400">
         {
-          content?.tags.map((tag,index) => (
+          content?.tags?.map((tag,index) => (
             <Tag name={tag} key={index}></Tag>
           ))
         }

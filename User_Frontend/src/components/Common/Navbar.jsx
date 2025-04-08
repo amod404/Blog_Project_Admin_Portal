@@ -19,7 +19,7 @@ const Navbar = () => {
     const getAllSeries = async () => {
       try{
         const response = await apiConnector("GET", GET_SERIES)
-        dispatch(setSeries(response.data.data))
+        dispatch(setSeries(response?.data?.data))
       } catch(err){
         console.log(err)
       }
@@ -30,7 +30,7 @@ const Navbar = () => {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (dropdownRef?.current && !dropdownRef.current.contains(event.target)) {
         setMore(false); // Close the dropdown
       }
     }
@@ -56,11 +56,11 @@ const Navbar = () => {
           <Link to={`/blog`}>
             <p>Blog</p>
           </Link>
-          <Link to={`/series/${series[0].name}`}>
-            <p>{series[0].name}</p>
+          <Link to={`/series/${series ? series[0]?.name : null}`}>
+            <p>{series ? series[0]?.name : null}</p>
           </Link>
-          <Link to={`/series/${series[1].name}`}>
-            <p>{series[1].name}</p>
+          <Link to={`/series/${series ? series[1]?.name : null}`}>
+            <p>{series ? series[1]?.name : null}</p>
           </Link>
           <div className="relative" ref={dropdownRef}>
             <p onClick={() => setMore((curr) => !curr)} className="cursor-pointer flex flex-row items-center justify-center gap-1">
@@ -72,10 +72,10 @@ const Navbar = () => {
                 <div className=" flex flex-col items-center justify-evenly absolute  top-12 right-0 bg-white shadow-sm shadow-richblack-25 border border-richblack-50 p-3 rounded-md">
                   {
                     series
-                      .filter((_, index) => index > 2)
-                      .map((ser, index) => (
-                        <Link to={`/series/${ser.name}`} key={index} className="p-2 px-6 text-center hover:bg-richblack-50 w-full rounded-md" >
-                          <p>{ser.name}</p>
+                      ?.filter((_, index) => index > 2)
+                      ?.map((ser, index) => (
+                        <Link to={`/series/${ser?.name}`} key={index} className="p-2 px-6 text-center hover:bg-richblack-50 w-full rounded-md" >
+                          <p>{ser?.name}</p>
                         </Link>
                       ))
                   }

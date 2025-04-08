@@ -34,7 +34,7 @@ export default function BounceCards({
   const getNoRotationTransform = (transformStr) => {
     const hasRotate = /rotate\([\s\S]*?\)/.test(transformStr);
     if (hasRotate) {
-      return transformStr.replace(/rotate\([\s\S]*?\)/, "rotate(0deg)");
+      return transformStr?.replace(/rotate\([\s\S]*?\)/, "rotate(0deg)");
     } else if (transformStr === "none") {
       return "rotate(0deg)";
     } else {
@@ -44,7 +44,7 @@ export default function BounceCards({
 
   const getPushedTransform = (baseTransform, offsetX) => {
     const translateRegex = /translate\(([-0-9.]+)px\)/;
-    const match = baseTransform.match(translateRegex);
+    const match = baseTransform?.match(translateRegex);
     if (match) {
       const currentX = parseFloat(match[1]);
       const newX = currentX + offsetX;
