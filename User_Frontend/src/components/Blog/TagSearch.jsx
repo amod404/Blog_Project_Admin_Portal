@@ -12,7 +12,6 @@ const TagSearch = () => {
             navigate(`/tag/${input.trim()}`); 
         }
     };
-
     return (
         <input
             type="text"
