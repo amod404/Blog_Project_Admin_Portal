@@ -8,7 +8,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+// const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
 
 // app.use(cors({
 //     origin: function (origin, callback) {
@@ -21,9 +21,22 @@ const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
 //     credentials: true // If you're sending cookies or authentication headers
 // }));
 
+const allowedOrigins = [
+    "http://localhost:3000",  // Local frontend
+    "http://localhost:3001"  // Local frontend
+    // "https://your-frontend.vercel.app" // Deployed frontend (replace with your actual URL)
+];
+
 app.use(cors({
-    origin: "*", // Allows all origins (only for debugging)
-    credentials: true
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.error("Blocked by CORS:", origin);
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
 }));
 
 app.use(
