@@ -8,7 +8,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001','https://amod-yadav-blogs.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001','https://amod-yadav-blogs.vercel.app/',"https://amod-yadav-blogs.vercel.app"];
 
 app.use(cors({
     origin: function (origin, callback) {
